@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="utf-8">
+  <title>JavaScript 語法 part 1</title>
+
+  <link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+  <style>
+    body {
+      background-color: Black;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- 區塊元素 -->
+  <div id="div0001"
+    style="font-weight: bold; font-size: 1cm; color: Snow; background-color: Gold; width: 100px; height: 100px; line-height: 100px; text-align: center; border-radius: 5px; float: left; margin: 5px;">
+    0001</div>
+
+  <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+  <script>
+
+    function status_before_transition(event) {
+      event.target.style.transform = 'rotateZ(0deg)';
+      event.target.style.color = original_text_color;
+      event.target.style.backgroundColor = original_background_color;
+    }
+
+    function transition01(event) {
+      original_text_color = event.target.style.color;
+      original_background_color = event.target.style.backgroundColor;
+
+      event.target.style.transform = 'rotateZ(-360deg)';
+      event.target.style.color = 'ForestGreen';
+      event.target.style.backgroundColor = 'Tomato';
+
+    }
+
+
+    var ref, color_number;
+    var original_text_color, original_background_color;
+
+    for (var i = 2; i < 1001; i++) {
+      ref = document.createElement('div');
+      // ref.id = 'div' + '0002';
+      ref.id = 'div' + i.toString().padStart(4, '0');
+      ref.innerHTML = i.toString().padStart(4, '0');
+
+
+      with (ref.style) {
+        fontWeight = 'bold';
+        fontSize = '1cm';
+
+        color_number = parseInt(Math.random() * 2 ** 24);
+        color = '#' + color_number.toString(16).padStart(6, '0');
+
+        color_number = parseInt(Math.random() * 2 ** 24);
+        backgroundColor = '#' + color_number.toString(16).padStart(6, '0');
+
+        width = '100px';
+        height = '100px';
+        lineHeight = '100px';
+        textAlign = 'center';
+        borderRadius = '5px';
+        float = 'left';
+        margin = '5px';
+
+        transition = 'transform 0.8s, color 1s, background-color 1s';
+      }
+
+      ref.onmouseover = transition01;
+      ref.onmouseout = status_before_transition;
+
+      document.body.append(ref);
+    }
+  </script>
+</body>
+
+</html>
